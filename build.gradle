@@ -1,10 +1,17 @@
 buildscript {
 
-    group 'net.dankito.text.extraction'
-    version '1.0.0-SNAPSHOT'
+    group "net.dankito.text.extraction"
+    version "1.0.0-SNAPSHOT"
 
     ext {
         artifactName = "text-info-extractor"
+
+        sourceCodeRepositoryBaseUrl = "github.com/dankito/TextInfoExtraction"
+        projectDescription = "Contains classes for extracting informations like dates, amounts of money, IBANs, BICs from texts."
+
+        licenseName = "The Apache License, Version 2.0"
+        licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+
 
         kotlinVersion = "1.3.71"
 
@@ -13,13 +20,13 @@ buildscript {
 
         /*  Test    */
 
-        junitVersion = '5.5.2'
+        junitVersion = "5.5.2"
 
-        assertJVersion = '3.14.0'
+        assertJVersion = "3.14.0"
 
-        mockitoVersion = '2.22.0'
+        mockitoVersion = "2.22.0"
 
-        logbackVersion = '1.2.3'
+        logbackVersion = "1.2.3"
     }
 
 
@@ -39,7 +46,7 @@ if (commonScriptsFile.exists()) {
 }
 
 
-apply plugin: 'kotlin'
+apply plugin: "kotlin"
 
 
 sourceCompatibility = 1.7
