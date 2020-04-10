@@ -1,25 +1,73 @@
-plugins {
-    id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.3.61'
+buildscript {
+
+    group 'net.dankito.text.extraction'
+    version '1.0.0-SNAPSHOT'
+
+    ext {
+        artifactName = "text-info-extractor"
+
+        kotlinVersion = "1.3.71"
+
+        javaUtilsVersion = "1.0.13"
+
+
+        /*  Test    */
+
+        junitVersion = '5.5.2'
+
+        assertJVersion = '3.14.0'
+
+        mockitoVersion = '2.22.0'
+
+        logbackVersion = '1.2.3'
+    }
+
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
 }
 
-group 'net.dankito.text.extraction'
-version '1.0.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+def commonScriptsFile = new File(new File(project.gradle.gradleUserHomeDir, "scripts"), "commonScripts.gradle")
+if (commonScriptsFile.exists()) {
+    apply from: commonScriptsFile
+}
+
+
+apply plugin: 'kotlin'
+
+
+sourceCompatibility = 1.7
+
+compileKotlin.kotlinOptions.jvmTarget = "1.6"
+
+compileTestKotlin.kotlinOptions.jvmTarget = "1.6"
+
 
 repositories {
     mavenCentral()
 }
 
+
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation "net.dankito.utils:java-utils:$javaUtilsVersion"
+
+
+    testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+
+    testImplementation "org.assertj:assertj-core:$assertJVersion"
+
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+
+    testImplementation "ch.qos.logback:logback-classic:$logbackVersion"
+
 }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
+
+ext.artifactName = "text-info-extractor"
