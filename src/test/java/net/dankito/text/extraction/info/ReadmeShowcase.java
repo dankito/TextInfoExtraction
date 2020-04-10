@@ -1,32 +1,26 @@
-# TextInfoExtractor
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.dankito.text.extraction/text-info-extractor/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.dankito.text.extraction/text-info-extractor)
+package net.dankito.text.extraction.info;
+
+import net.dankito.text.extraction.info.bank.BicExtractor;
+import net.dankito.text.extraction.info.bank.IBicExtractor;
+import net.dankito.text.extraction.info.bank.IIbanExtractor;
+import net.dankito.text.extraction.info.bank.IbanExtractor;
+import net.dankito.text.extraction.info.invoice.IInvoiceDataExtractor;
+import net.dankito.text.extraction.info.invoice.InvoiceDataExtractor;
+import net.dankito.text.extraction.info.model.AmountOfMoney;
+import net.dankito.text.extraction.info.model.DateData;
+import net.dankito.text.extraction.info.model.InvoiceData;
+import net.dankito.text.extraction.info.model.StringSearchResult;
+
+import java.util.List;
+
+public class ReadmeShowcase {
+
+    public static void main(String[] args) {
+        new ReadmeShowcase().showcase();
+    }
 
 
-Extract info from texts like Dates, Amounts of money, IBANs and BICs.
-
-
-## Setup
-
-Gradle:
-```
-dependencies {
-  compile 'net.dankito.text.extraction:text-info-extractor:1.0.0'
-}
-```
-
-Maven:
-```
-<dependency>
-   <groupId>net.dankito.text.extraction</groupId>
-   <artifactId>text-info-extractor</artifactId>
-   <version>1.0.0</version>
-</dependency>
-```
-
-
-## Usage
-
-```java
+    public void showcase() {
         IDateExtractor dateExtractor = new DateExtractor();
         List<DateData> foundDates = dateExtractor.extractDates("04/11/2020\n12/24/2019");
 
@@ -42,4 +36,5 @@ Maven:
         IInvoiceDataExtractor invoiceDataExtractor = new InvoiceDataExtractor();
         InvoiceData extractedInvoiceData = invoiceDataExtractor.extractInvoiceData("04/11/2020\nItem 1 23.45 $\n" +
                 "Item 2 678.90 $\nTotal 702.35 $\nNot existing bank CHASGB2LXXX GB00123456789012345678");
-```
+    }
+}
