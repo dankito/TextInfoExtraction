@@ -45,6 +45,10 @@ open class AmountExtractor(
     }
 
 
+    override fun extractAmountsOfMoney(text: String): List<AmountOfMoney> {
+        return extractAmountsOfMoney(text.split("\n"))
+    }
+
     override fun extractAmountsOfMoney(lines: List<String>): List<AmountOfMoney> {
         val pattern = createCurrencySymbolPattern(currencySymbolPatternString)
 
@@ -117,6 +121,10 @@ open class AmountExtractor(
         return extractNumber(amountString)?.toDouble() ?: amountString.toDouble()
     }
 
+
+    override fun extractPercentages(text: String): List<AmountOfMoney> {
+        return extractPercentages(text.split("\n"))
+    }
 
     override fun extractPercentages(lines: List<String>): List<AmountOfMoney> {
         val percentageSymbol = getPercentageSymbol()
