@@ -7,13 +7,6 @@ Extract info from texts like Dates, Amounts of money, IBANs and BICs.
 
 ## Setup
 
-Gradle:
-```
-dependencies {
-  compile 'net.dankito.text.extraction:text-info-extractor:1.0.0'
-}
-```
-
 Maven:
 ```
 <dependency>
@@ -21,6 +14,20 @@ Maven:
    <artifactId>text-info-extractor</artifactId>
    <version>1.0.0</version>
 </dependency>
+```
+
+Gradle Groovy:
+```
+dependencies {
+  implementation 'net.dankito.text.extraction:text-info-extractor:1.0.0'
+}
+```
+
+Gradle Kotlin:
+```
+dependencies {
+  implementation("net.dankito.text.extraction:text-info-extractor:1.0.0")
+}
 ```
 
 
