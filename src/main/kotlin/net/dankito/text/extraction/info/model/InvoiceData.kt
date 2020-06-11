@@ -12,12 +12,14 @@ open class InvoiceData(
     val potentialNetAmount: AmountOfMoney? = null,
     val potentialValueAddedTax: AmountOfMoney? = null,
     val potentialValueAddedTaxRate: AmountOfMoney? = null,
+    val potentialIban: String? = null,
+    val potentialBic: String? = null,
     val error: Exception? = null
 ) {
 
     companion object {
         fun couldNotExtractInvoiceData(error: Exception?): InvoiceData {
-            return InvoiceData(listOf(), listOf(), listOf(), listOf(), listOf(), null, null, null, null, error)
+            return InvoiceData(listOf(), listOf(), listOf(), listOf(), listOf(), null, null, null, null, null, null, error)
         }
     }
 

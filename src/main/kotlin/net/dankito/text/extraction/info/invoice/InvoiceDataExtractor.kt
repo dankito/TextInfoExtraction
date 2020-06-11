@@ -1,10 +1,7 @@
 package net.dankito.text.extraction.info.invoice
 
 import net.dankito.text.extraction.info.*
-import net.dankito.text.extraction.info.bank.BicExtractor
-import net.dankito.text.extraction.info.bank.IBicExtractor
-import net.dankito.text.extraction.info.bank.IIbanExtractor
-import net.dankito.text.extraction.info.bank.IbanExtractor
+import net.dankito.text.extraction.info.bank.*
 import net.dankito.text.extraction.info.model.InvoiceData
 import org.slf4j.LoggerFactory
 
@@ -14,7 +11,9 @@ open class InvoiceDataExtractor @JvmOverloads constructor(
     protected val amountCategorizer: IAmountCategorizer = AmountCategorizer(),
     protected val dateExtractor: DateExtractor = DateExtractor(),
     protected val ibanExtractor: IIbanExtractor = IbanExtractor(),
-    protected val bicExtractor: IBicExtractor = BicExtractor()
+    protected val potentialIbanFinder: IPotentialIbanFinder = PotentialIbanFinder(),
+    protected val bicExtractor: IBicExtractor = BicExtractor(),
+    protected val potentialBicFinder: IPotentialBicFinder = PotentialBicFinder()
 ) : ExtractorBase(), IInvoiceDataExtractor {
 
     companion object {
@@ -37,14 +36,18 @@ open class InvoiceDataExtractor @JvmOverloads constructor(
             val dates = dateExtractor.extractDates(lines)
 
             val ibans = ibanExtractor.extractIbans(lines)
+            val potentialIban = potentialIbanFinder.findPotentialIban(ibans)
 
             val bics = bicExtractor.extractBics(lines)
+            val potentialBic = potentialBicFinder.findPotentialBic(bics)
 
             amountCategorizer.findTotalNetAndVatAmount(amounts)?.let { potentialAmounts ->
-                return InvoiceData(amounts, percentages, dates, ibans, bics, potentialAmounts.totalAmount, potentialAmounts.netAmount, potentialAmounts.valueAddedTax, potentialVatRate)
+                return InvoiceData(amounts, percentages, dates, ibans, bics, potentialAmounts.totalAmount, potentialAmounts.netAmount,
+                    potentialAmounts.valueAddedTax, potentialVatRate, potentialIban, potentialBic)
             }
 
-            return InvoiceData(amounts, percentages, dates, ibans, bics)
+            return InvoiceData(amounts, percentages, dates, ibans, bics, null, null, null,
+                potentialVatRate, potentialIban, potentialBic)
         } catch (e: Exception) {
             log.error("Could not extract invoice data from:${lines.map { System.lineSeparator() + it }}", e)
 
