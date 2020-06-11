@@ -3,6 +3,7 @@ package net.dankito.text.extraction.info
 import net.dankito.text.extraction.info.model.AmountOfMoney
 import net.dankito.utils.extensions.countOccurrences
 import org.slf4j.LoggerFactory
+import java.math.BigDecimal
 import java.text.NumberFormat
 import java.util.*
 import java.util.regex.Matcher
@@ -115,10 +116,10 @@ open class AmountExtractor(
         return AmountOfMoney(amount, currencySymbol, amountWithCurrency, line)
     }
 
-    protected open fun extractAmount(amountWithCurrency: String, currencySymbol: String): Double {
+    protected open fun extractAmount(amountWithCurrency: String, currencySymbol: String): BigDecimal {
         val amountString = amountWithCurrency.replace(currencySymbol, "").trim()
 
-        return extractNumber(amountString)?.toDouble() ?: amountString.toDouble()
+        return extractNumber(amountString)?.let { BigDecimal(it.toString()) } ?: amountString.toBigDecimal()
     }
 
 
@@ -146,7 +147,7 @@ open class AmountExtractor(
             val percentageNumberAsFloat = extractNumber(percentageNumberAsString)?.toFloat() ?: percentageNumberAsString.toFloat()
 
             if (percentageNumberAsFloat in 0f..100f) { // is really a percentage
-                return AmountOfMoney(percentageNumberAsFloat.toDouble(), percentageSymbol, percentageString, line)
+                return AmountOfMoney(percentageNumberAsFloat.toBigDecimal(), percentageSymbol, percentageString, line)
             }
         } catch (e: Exception) { log.warn("Could not map $percentageNumberAsString to Float", e) }
 

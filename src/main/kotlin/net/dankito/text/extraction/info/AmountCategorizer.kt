@@ -2,6 +2,7 @@ package net.dankito.text.extraction.info
 
 import net.dankito.text.extraction.info.model.AmountOfMoney
 import net.dankito.text.extraction.info.model.TotalNetAndVatAmount
+import java.math.BigDecimal
 
 
 open class AmountCategorizer : IAmountCategorizer {
@@ -9,7 +10,7 @@ open class AmountCategorizer : IAmountCategorizer {
     companion object {
 
         // see https://en.wikipedia.org/wiki/List_of_countries_by_tax_rates; 18.05.2019: India
-        const val HighestValueAddedTaxRate = 28.0
+        val HighestValueAddedTaxRate = BigDecimal("28.0")
 
     }
 

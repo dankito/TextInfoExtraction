@@ -1,7 +1,9 @@
 package net.dankito.text.extraction.info.model
 
+import java.math.BigDecimal
 
-class AmountOfMoney(val amount: Double, val currency: String, val amountWithCurrency: String, foundInLine: String) :
+
+class AmountOfMoney(val amount: BigDecimal, val currency: String, val amountWithCurrency: String, foundInLine: String) :
     SearchResult(foundInLine) {
 
 
@@ -11,7 +13,7 @@ class AmountOfMoney(val amount: Double, val currency: String, val amountWithCurr
 
         other as AmountOfMoney
 
-        if (amount != other.amount) return false
+        if (amount.compareTo(other.amount) != 0) return false
         if (currency != other.currency) return false
         if (amountWithCurrency != other.amountWithCurrency) return false
 
