@@ -25,6 +25,13 @@ open class IbanExtractor : ExtractorBase(), IIbanExtractor {
          */
         const val IbanWithSpacesPatternString = "\\b[A-Z]{2}\\d{2}\\s([A-Z0-9]{4}\\s){3}[A-Z0-9\\s]{1,18}\\b"
         val IbanWithSpacesPattern = Pattern.compile(IbanWithSpacesPatternString)
+
+
+        const val ContainsOnlyDigitsPatternString = "\\d+"
+        val ContainsOnlyDigitsPattern = Pattern.compile(ContainsOnlyDigitsPatternString)
+
+
+        val CountriesHavingOnlyDigitsInIban = listOf("AT", "CH", "DE") // TODO: add other countries only having digits in their IBAN
     }
 
 
@@ -38,7 +45,18 @@ open class IbanExtractor : ExtractorBase(), IIbanExtractor {
         result.addAll(findStrings(lines, IbanPattern))
         result.addAll(findStrings(lines, IbanWithSpacesPattern))
 
-        return result
+        return result.filterNot { isUnfeasibleIban(it) }
+    }
+
+    protected open fun isUnfeasibleIban(result: StringSearchResult): Boolean {
+        // Austrian, Swiss and German IBANs contain only digits -> filters out e.g. Gläubigermandatsreferenzen
+        if (CountriesHavingOnlyDigitsInIban.contains(result.hit.substring(0, 2))) {
+            if (ContainsOnlyDigitsPattern.matcher(result.hit.replace(" ", "").substring(2)).matches() == false) {
+                return true
+            }
+        }
+
+        return false
     }
 
 }
