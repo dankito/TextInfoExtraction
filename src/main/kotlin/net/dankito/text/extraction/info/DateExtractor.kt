@@ -9,7 +9,7 @@ import java.util.regex.Pattern
 open class DateExtractor : IDateExtractor {
 
     companion object {
-        const val Day = "(?<day>[012][0-9]|3[01]|[1-9])"
+        const val Day = "(?<day>[012]?[0-9]|3[01])"
         const val Month = "(?<month>1[012]|0?[1-9])"
         const val Year = "(?<year>(?:19|20)?\\d\\d)"
         const val Separator = "[./ -]"
