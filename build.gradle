@@ -1,7 +1,7 @@
 buildscript {
 
     group "net.dankito.text.extraction"
-    version "1.0.1-SNAPSHOT"
+    version "1.0.1"
 
     ext {
         artifactName = "text-info-extractor"
