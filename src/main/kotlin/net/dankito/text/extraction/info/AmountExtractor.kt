@@ -1,7 +1,7 @@
 package net.dankito.text.extraction.info
 
+import net.dankito.text.extraction.info.extensions.countOccurrences
 import net.dankito.text.extraction.info.model.AmountOfMoney
-import net.dankito.utils.extensions.countOccurrences
 import org.slf4j.LoggerFactory
 import java.math.BigDecimal
 import java.text.NumberFormat
