@@ -28,7 +28,8 @@ open class AmountCategorizer : IAmountCategorizer {
                     for (vatIndex in (netIndex + 1) until amountsSorted.size) {
                         val potentialVat = amountsSorted[vatIndex]
 
-                        if (potentialTotal.amount == (potentialNet.amount + potentialVat.amount)) {
+                        // use compareTo() so that two BigDecimals are considered equal even if scale differs, e.g. 2.0 and 2.00
+                        if (potentialTotal.amount.compareTo(potentialNet.amount + potentialVat.amount) == 0) {
                             return TotalNetAndVatAmount(potentialTotal, potentialNet, potentialVat)
                         }
                     }
