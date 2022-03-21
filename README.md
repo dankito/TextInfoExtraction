@@ -2,7 +2,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.dankito.text.extraction/text-info-extractor/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.dankito.text.extraction/text-info-extractor)
 
 
-Extract info from texts like Dates, Amounts of money, IBANs and BICs.
+Extract data from texts like Dates, Amounts of money, IBANs and BICs.
 
 
 ## Setup
@@ -12,21 +12,14 @@ Maven:
 <dependency>
    <groupId>net.dankito.text.extraction</groupId>
    <artifactId>text-info-extractor</artifactId>
-   <version>1.0.0</version>
+   <version>1.0.2</version>
 </dependency>
 ```
 
-Gradle Groovy:
+Gradle:
 ```
 dependencies {
-  implementation 'net.dankito.text.extraction:text-info-extractor:1.0.0'
-}
-```
-
-Gradle Kotlin:
-```
-dependencies {
-  implementation("net.dankito.text.extraction:text-info-extractor:1.0.0")
+  implementation("net.dankito.text.extraction:text-info-extractor:1.0.2")
 }
 ```
 
