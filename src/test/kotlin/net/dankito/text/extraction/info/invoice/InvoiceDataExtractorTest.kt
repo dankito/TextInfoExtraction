@@ -55,7 +55,7 @@ class InvoiceDataExtractorTest : TestBase() {
         // then
         assertThat(result.error).isNull()
 
-        assertThat(result.allAmounts.map { it.amount }).containsExactlyElementsOf(decimals(6.99, 1.12, 5.87))
+        assertThat(result.allAmounts.map { it.amount }).containsOnly(decimal(6.99), decimal(1.12), decimal(5.87))
 
         assertThat(result.percentages.map { it.amount }).containsOnly(decimal(19.0))
 
