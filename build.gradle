@@ -11,20 +11,6 @@ buildscript {
 
         licenseName = "The Apache License, Version 2.0"
         licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-
-
-        kotlinVersion = "1.6.10"
-
-
-        /*  Test    */
-
-        junitVersion = "5.5.2"
-
-        assertJVersion = "3.14.0"
-
-        mockitoVersion = "2.22.0"
-
-        logbackVersion = "1.2.3"
     }
 
 
@@ -66,16 +52,16 @@ repositories {
 
 
 dependencies {
-    implementation "org.slf4j:slf4j-api:1.7.31"
+    implementation "org.slf4j:slf4j-api:1.7.36"
 
 
     testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 
-    testImplementation "org.assertj:assertj-core:$assertJVersion"
+    testImplementation "org.assertj:assertj-core:3.22.0"
 
-    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-core:4.3.1"
 
-    testImplementation "ch.qos.logback:logback-classic:$logbackVersion"
+    testImplementation "ch.qos.logback:logback-classic:1.2.11"
 
 }
