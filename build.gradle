@@ -79,6 +79,3 @@ dependencies {
     testImplementation "ch.qos.logback:logback-classic:$logbackVersion"
 
 }
-
-
-ext.artifactName = "text-info-extractor"
