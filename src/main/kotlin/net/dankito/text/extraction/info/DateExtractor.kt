@@ -90,8 +90,16 @@ open class DateExtractor : IDateExtractor {
                 val day = matcher.group("day").toInt()
                 val month = matcher.group("month").toInt()
                 val year = matcher.group("year").toInt()
+                var probableFourDigitYear = year
 
-                matches.add(DateData(day, month, year, matcher.group(), line))
+                if (year < 25) { // then it's quite sure a year in this century, like 20.11.21
+                    probableFourDigitYear += 2000
+                } else if (year < 100) { // then it's quite sure a year in previous century, like 20.11.98
+                    probableFourDigitYear += 1900
+                }
+
+                // TODO: check if it's a valid date, e.g. 2019-02-29 isn't
+                matches.add(DateData(day, month, year, probableFourDigitYear, matcher.group(), line))
             } catch (e: Exception) {
                 log.error("Could not map date string '${matcher.group()}' in line '$line' to Date", e)
             }

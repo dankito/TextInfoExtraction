@@ -10,7 +10,7 @@ class DateExtractorTest {
 
         val ExpectedResult = DateData(27, 3, 1988, "", "")
 
-        val ExpectedResultShortYear = DateData(27, 3, 88, "", "")
+        val ExpectedResultShortYear = DateData(27, 3, 88, 1988, "", "")
 
         val ExpectedResultShortDay = DateData(7, 3, 1988, "", "")
 

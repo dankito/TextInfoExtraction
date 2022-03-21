@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-open class DateData(val day: Int, val month: Int, val year: Int, val dateString: String, foundInLine: String) :
+open class DateData(val day: Int, val month: Int, val year: Int, val probableFourDigitYear: Int, val dateString: String, foundInLine: String) :
     SearchResult(foundInLine) {
 
     companion object {
@@ -12,11 +12,14 @@ open class DateData(val day: Int, val month: Int, val year: Int, val dateString:
     }
 
 
+    constructor(day: Int, month: Int, year: Int, dateString: String, foundInLine: String) : this(day, month, year, year, dateString, foundInLine)
+
+
     open fun toJavaUtilDate(): Date {
         return DateFormatter.parse(getDateAccordingToDateFormat())
     }
 
-    protected open fun getDateAccordingToDateFormat() = "$day.$month.$year"
+    protected open fun getDateAccordingToDateFormat() = "$day.$month.${ if (year < 1000) probableFourDigitYear else year }"
 
 
 
