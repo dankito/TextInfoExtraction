@@ -1,12 +1,14 @@
 package net.dankito.text.extraction.info
 
 import net.dankito.text.extraction.info.model.AmountOfMoney
+import net.dankito.text.extraction.info.util.TestBase
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
+import java.math.BigDecimal
 
 
-class AmountExtractorTest {
+class AmountExtractorTest : TestBase() {
 
     companion object {
         private val CurrencySymbols = listOf("$", "€", "EUR", "£") // cannot be made a compile-time constant in Kotlin so that @ValueSource does not work
@@ -27,7 +29,7 @@ class AmountExtractorTest {
         val result = underTest.extractAmountsOfMoney(listOf("10 $currency"))
 
         // then
-        assertAmountAndCurrency(result, 10.0, currency)
+        assertAmountAndCurrency(result, 10, currency)
     }
 
 
@@ -62,7 +64,7 @@ class AmountExtractorTest {
         val result = underTest.extractAmountsOfMoney(listOf("1,234,567 $currency"))
 
         // then
-        assertAmountAndCurrency(result, 1234567.0, currency)
+        assertAmountAndCurrency(result, 1234567, currency)
     }
 
     @ParameterizedTest
@@ -73,7 +75,7 @@ class AmountExtractorTest {
         val result = underTest.extractAmountsOfMoney(listOf("1.234.567 $currency"))
 
         // then
-        assertAmountAndCurrency(result, 1234567.0, currency)
+        assertAmountAndCurrency(result, 1234567, currency)
     }
 
 
@@ -101,9 +103,17 @@ class AmountExtractorTest {
 
 
     private fun assertAmountAndCurrency(result: List<AmountOfMoney>, amount: Double, currency: String) {
-        assertThat(result).extracting("amount").containsExactly(amount)
+        assertAmountAndCurrency(result, decimal(amount), currency)
+    }
 
-        assertThat(result).extracting("currency").containsExactly(currency)
+    private fun assertAmountAndCurrency(result: List<AmountOfMoney>, amount: Long, currency: String) {
+        assertAmountAndCurrency(result, decimal(amount), currency)
+    }
+
+    private fun assertAmountAndCurrency(result: List<AmountOfMoney>, amount: BigDecimal, currency: String) {
+        assertThat(result.map { it.amount }).containsExactly(amount)
+
+        assertThat(result.map { it.currency }).containsExactly(currency)
     }
 
 }
