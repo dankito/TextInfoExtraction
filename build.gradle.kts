@@ -24,7 +24,7 @@ version = "1.0.3-SNAPSHOT"
 
 
 kotlin {
-    jvmToolchain(7)
+    jvmToolchain(8)
 }
 
 
