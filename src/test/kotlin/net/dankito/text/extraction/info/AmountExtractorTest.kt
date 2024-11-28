@@ -102,6 +102,15 @@ class AmountExtractorTest : TestBase() {
     }
 
 
+    @ParameterizedTest
+    @MethodSource("currenciesProvider")
+    fun `Non-breakable space between amount and currency`(currency: String) {
+        val result = underTest.extractAmountsOfMoney(listOf("$currency   99,00"))
+
+        assertAmountAndCurrency(result, 99, currency)
+    }
+
+
     private fun assertAmountAndCurrency(result: List<AmountOfMoney>, amount: Double, currency: String) {
         assertAmountAndCurrency(result, decimal(amount), currency)
     }

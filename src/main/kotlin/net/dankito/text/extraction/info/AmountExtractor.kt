@@ -18,6 +18,8 @@ open class AmountExtractor(
      */
     protected val currencySymbolPatternString: String = "\\p{Sc}|EUR",
 
+    protected val whiteSpace: String = "\\p{javaSpaceChar}*", // "\\s*" doesn't find e.g. non-breakable spaces
+
     /**
     * \\d+|
     * either figures or
@@ -245,13 +247,13 @@ open class AmountExtractor(
     protected open fun createPatternForDecimalNumberBeforeCurrencySymbol(decimalNumberPatternString: String,
                                                                          currencySymbol: String): Pattern {
 
-        return Pattern.compile(decimalNumberPatternString + "\\s*" + getCurrencySymbolPattern(currencySymbol), Pattern.CASE_INSENSITIVE)
+        return Pattern.compile(decimalNumberPatternString + whiteSpace + getCurrencySymbolPattern(currencySymbol), Pattern.CASE_INSENSITIVE)
     }
 
     protected open fun createPatternForDecimalNumberAfterCurrencySymbol(decimalNumberPatternString: String,
                                                                          currencySymbol: String): Pattern {
 
-        return Pattern.compile(getCurrencySymbolPattern(currencySymbol) + "\\s*" + decimalNumberPatternString, Pattern.CASE_INSENSITIVE)
+        return Pattern.compile(getCurrencySymbolPattern(currencySymbol) + whiteSpace + decimalNumberPatternString, Pattern.CASE_INSENSITIVE)
     }
 
     private fun getCurrencySymbolPattern(currencySymbol: String): String {
@@ -265,7 +267,7 @@ open class AmountExtractor(
     protected open fun createPatternForPercentage(decimalNumberPatternString: String,
                                                   percentageSymbol: String): Pattern {
 
-        return Pattern.compile(decimalNumberPatternString + "\\s*" + percentageSymbol, Pattern.CASE_INSENSITIVE)
+        return Pattern.compile(decimalNumberPatternString + whiteSpace + percentageSymbol, Pattern.CASE_INSENSITIVE)
     }
 
 }
