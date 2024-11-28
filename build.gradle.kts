@@ -1,4 +1,6 @@
 buildscript {
+    val kotlinVersion: String by extra
+
     repositories {
         mavenCentral()
     }
@@ -10,7 +12,7 @@ buildscript {
 
 
 plugins {
-    id("org.jetbrains.kotlin.jvm")
+    kotlin("jvm")
 
     // So after executing publish staged repository can be closed and released by executing closeAndReleaseRepository
     id("io.codearte.nexus-staging") version "0.21.2"
@@ -21,17 +23,17 @@ group = "net.dankito.text.extraction"
 version = "1.0.3-SNAPSHOT"
 
 
-sourceCompatibility = 1.7
-
-compileKotlin.kotlinOptions.jvmTarget = "1.6"
-
-compileTestKotlin.kotlinOptions.jvmTarget = "1.6"
+kotlin {
+    jvmToolchain(7)
+}
 
 
 repositories {
     mavenCentral()
 }
 
+
+val junitVersion: String by project
 
 dependencies {
     implementation("org.slf4j:slf4j-api:1.7.36")
@@ -49,17 +51,17 @@ dependencies {
 }
 
 
-ext {
-    artifactName = "text-info-extractor"
+ext.apply {
+    set("artifactName", "text-info-extractor")
 
-    sourceCodeRepositoryBaseUrl = "github.com/dankito/TextInfoExtraction"
-    projectDescription = "Contains classes for extracting informations like dates, amounts of money, IBANs, BICs from texts."
+    set("sourceCodeRepositoryBaseUrl", "github.com/dankito/TextInfoExtraction")
+    set("projectDescription", "Contains classes for extracting informations like dates, amounts of money, IBANs, BICs from texts.")
 
-    licenseName = "The Apache License, Version 2.0"
-    licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+    set("licenseName", "The Apache License, Version 2.0")
+    set("licenseUrl", "http://www.apache.org/licenses/LICENSE-2.0.txt")
 }
 
-def commonScriptsFile = new File(new File(project.gradle.gradleUserHomeDir, "scripts"), "commonScripts.gradle")
+val commonScriptsFile = File(File(project.gradle.gradleUserHomeDir, "scripts"), "commonScripts.gradle")
 if (commonScriptsFile.exists()) {
-    apply from: commonScriptsFile
+    apply(from = commonScriptsFile)
 }
