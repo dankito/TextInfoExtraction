@@ -20,7 +20,7 @@ plugins {
 
 
 group = "net.dankito.text.extraction"
-version = "1.0.3-SNAPSHOT"
+version = "1.0.3"
 
 
 kotlin {
